@@ -1,7 +1,4 @@
 import { useState } from "react"
- 
-
-
 
 function App() {
 
@@ -14,17 +11,17 @@ const items = Array.from({length:100},
 
     const selectedPageHandler = (selectedPage) => {
       if(selectedPage >= 1 &&
-        selectedPage <= items.length/10 &&
+        selectedPage <= ItemsPerPage &&
         selectedPage !== currentPage
       )
       setCurrentPage(selectedPage)
     }
 
-
   const lastPostindex = currentPage * postPerPage;
   const firstPostIndex = lastPostindex - postPerPage;
   const currentPosts = items.slice(firstPostIndex,lastPostindex) 
   console.log(currentPosts)
+  const ItemsPerPage  = Math.ceil(items.length/postPerPage)
 
   return (
     <div>
@@ -44,31 +41,32 @@ const items = Array.from({length:100},
         }           
 </ul> 
 <div>
-<div className="pr-10 pl-10 gap-5 border-black  flex justify-center">
-  <span className={currentPage > 1? "p-2 bg-violet-600 rounded-md text-white" : "opacity-0"}  onClick={() => {selectedPageHandler(currentPage-1)}}>left</span>
+  <label>Items Per Page
+  <select value={postPerPage} onChange = {(e) => {setPostPerPage(e.target.value)}}  >
+    <option  value={setPostPerPage}>10</option>
+    <option  value={setPostPerPage}>20</option>
+    <option value={setPostPerPage}>30</option>
+    <option value={setPostPerPage}>40</option>
+    <option value={setPostPerPage}>50</option>
+  </select>
+  </label>
+<div className="pr-10 pl-10 gap-5 border-black  flex justify-between items-center bg-gray-100">
+  <span className={currentPage > 1? "p-2 bg-violet-600 rounded-md text-white" : "opacity-1"}  onClick={() => {selectedPageHandler(currentPage-1)}}>previous</span>
   {
-   [...Array(items.length/10)].map((_,i) => {
+   [...Array(ItemsPerPage)].map((_,i) => {
     return <span key={i} className= {currentPage === i+1 ? " text-white pagination__selection bg-blue-600 p-2 cursor-pointer  " : ""}
 
      onClick={() => {selectedPageHandler(i+1)}}>{i+1}</span>
    })
   }
-  <span  onClick={() => {selectedPageHandler(currentPage+1)}} className={currentPage < items.length/10? "p-2 bg-violet-600 rounded-md text-white" : "opacity-0"}
-  >right</span>
+  <span  onClick={() => {selectedPageHandler(currentPage+1)}} className={currentPage < ItemsPerPage? "p-2 bg-violet-600 rounded-md text-white" : "opacity-0"}
+  >next</span>
 </div>
-
 <div>
   </div>
   </div>  
-
-
       </div>  
-      </div>
-     
-      
+      </div>  
   )
 }
-
-
-
 export default App
