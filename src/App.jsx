@@ -42,7 +42,7 @@ const items = Array.from({length:100},
 </ul> 
 <div>
   <label>Items Per Page
-  <select value={postPerPage} onChange = {(e) => {setPostPerPage(e.target.value)}}  >
+  <select value={postPerPage} onChange = {(e) => {setPostPerPage(e.target.value),setCurrentPage(1)}}  >
     <option  value={setPostPerPage}>10</option>
     <option  value={setPostPerPage}>20</option>
     <option value={setPostPerPage}>30</option>
@@ -50,16 +50,16 @@ const items = Array.from({length:100},
     <option value={setPostPerPage}>50</option>
   </select>
   </label>
-<div className="pr-10 pl-10 gap-5 border-black  flex justify-between items-center bg-gray-100">
-  <span className={currentPage > 1? "p-2 bg-violet-600 rounded-md text-white" : "opacity-1"}  onClick={() => {selectedPageHandler(currentPage-1)}}>previous</span>
+<div className="pr-10 pl-10 gap-5 border-black  flex justify-between items-center bg-gray-100 cursor-pointer">
+  <span className={currentPage > 1? "cursor-pointer p-2 bg-violet-600 rounded-md text-white" : "opacity-1"}  onClick={() => {selectedPageHandler(currentPage-1)}}>previous</span>
   {
    [...Array(ItemsPerPage)].map((_,i) => {
-    return <span key={i} className= {currentPage === i+1 ? " text-white pagination__selection bg-blue-600 p-2 cursor-pointer  " : ""}
+    return <span key={i} className= {currentPage === i+1 ? "text-white  bg-blue-600" : ""}
 
-     onClick={() => {selectedPageHandler(i+1)}}>{i+1}</span>
+     onClick={() => {selectedPageHandler(i+1)}}><div className= "  p-2 cursor-pointer  hover:bg-blue-800  hover:text-white">{i+1}</div></span>
    })
   }
-  <span  onClick={() => {selectedPageHandler(currentPage+1)}} className={currentPage < ItemsPerPage? "p-2 bg-violet-600 rounded-md text-white" : "opacity-0"}
+  <span  onClick={() => {selectedPageHandler(currentPage+1)}} className={currentPage < ItemsPerPage? "cursor-pointer p-2 bg-violet-600 rounded-md text-white" : "opacity-0"}
   >next</span>
 </div>
 <div>
